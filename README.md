@@ -1,24 +1,67 @@
-[tool.poetry]
-name = "qdrant_demo"
-version = "0.1.0"
-description = "Qdrant vector similarity engine demo"
-authors = ["Andrey Vasnetsov <andrey@vasnetsov.com>"]
+# Game-4X-maker
+Application that can use chatGPT and Codex in streamlit to run and we must reflect this evening on the title of the application, it will be an application whose role will be to create code or to ask it through the text to create a video game
+[metadata]
+name = openai
+version = attr: openai.version.VERSION
+description = Python client library for the OpenAI API
+long_description = file: README.md
+long_description_content_type = text/markdown
+author = OpenAI
+author_email = support@openai.com
+url = https://github.com/openai/openai-python
+license_files = LICENSE
+classifiers =
+  Programming Language :: Python :: 3
+  License :: OSI Approved :: MIT License
+  Operating System :: OS Independent
 
-[tool.poetry.dependencies]
-python = ">=3.8,<3.12"
-scipy = "^1.9.1"
-fastapi = "^0.67"
-uvicorn = "^0.12.3"
-sentence-transformers = "^2.2.0"
-psutil = "^5.7.3"
-nltk = "^3.7"
-pandas = "^1.1.5"
-loguru = "^0.5.3"
-requests = "^2.25.1"
-qdrant-client = "0.10.2"
+[options]
+packages = find:
+python_requires = >=3.7.1
+zip_safe = True
+include_package_data = True
+install_requires =
+  requests >= 2.20  # to get the patch for CVE-2018-18074
+  tqdm  # Needed for progress bars
+  typing_extensions; python_version<"3.8"  # Needed for type hints for mypy
+  aiohttp  # Needed for async support
 
-[tool.poetry.dev-dependencies]
+[options.extras_require]
+dev =
+  black ~= 21.6b0
+  pytest == 6.*
+  pytest-asyncio
+  pytest-mock
+datalib =
+  numpy
+  pandas >= 1.2.3  # Needed for CLI fine-tuning data preparation tool
+  pandas-stubs >= 1.1.0.11  # Needed for type hints for mypy
+  openpyxl >= 3.0.7  # Needed for CLI fine-tuning data preparation tool xlsx format
+wandb =
+  wandb
+  numpy
+  pandas >= 1.2.3  # Needed for CLI fine-tuning data preparation tool
+  pandas-stubs >= 1.1.0.11  # Needed for type hints for mypy
+  openpyxl >= 3.0.7  # Needed for CLI fine-tuning data preparation tool xlsx format
+embeddings =
+  scikit-learn >= 1.0.2  # Needed for embedding utils, versions >= 1.1 require python 3.8
+  tenacity >= 8.0.1
+  matplotlib
+  plotly
+  numpy
+  scipy
+  pandas >= 1.2.3  # Needed for CLI fine-tuning data preparation tool
+  pandas-stubs >= 1.1.0.11  # Needed for type hints for mypy
+  openpyxl >= 3.0.7  # Needed for CLI fine-tuning data preparation tool xlsx format
 
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+[options.entry_points]
+console_scripts =
+  openai = openai._openai_scripts:main
+
+[options.package_data]
+  openai = py.typed
+
+[options.packages.find]
+exclude =
+  tests
+  tests.*
